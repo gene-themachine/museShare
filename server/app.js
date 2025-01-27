@@ -3,10 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./utils/config');
+require('dotenv').config();
 
 const blogsRouter = require('./controllers/blogs');
 const spotifyRouter = require('./controllers/spotify');
 const usersRouter = require('./controllers/users');
+const authRouter = require('./controllers/auth');
 const app = express();
 
 mongoose
@@ -26,6 +28,7 @@ app.use(express.json());
 app.use('/api/users', usersRouter);
 app.use('/api/blogs', blogsRouter);
 app.use('/api', spotifyRouter);
+app.use('/api/auth', authRouter);
 
 
 

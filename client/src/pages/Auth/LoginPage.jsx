@@ -13,6 +13,7 @@ const LoginPage = () => {
         e.preventDefault();
         try {
           const user = await signInUser(email, password);
+
           console.log('Sign-in successful:', user);
           
           setTimeout(() => {

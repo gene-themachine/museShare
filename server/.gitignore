@@ -2,8 +2,6 @@
 .env
 # Dependency directories
 node_modules
-# Build artifacts
-dist
 # Temporary files
 *.tmp
 *.temp

@@ -44,7 +44,6 @@ const MyArtistBlogs = () => {
                             }
                         })
                     );
-                    console.log(updatedBlogsData);
                     setBlogInfo(updatedBlogsData);
 
                 }

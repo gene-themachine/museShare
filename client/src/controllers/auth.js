@@ -1,14 +1,12 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import axios from 'axios';
 
-import firebaseApp from './firebase';
-
-const auth = getAuth(firebaseApp);
+const baseUrl = '/api/auth';
 
 // Sign Up User
 export const signUpUser = async (email, password) => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    console.log('User created:', userCredential.user);
+    const userCredential = await axios.post(`${baseUrl}/signup`, { email, password });
+
     return userCredential.user;
   } catch (error) {
     console.error('Error signing up:', error.message);
@@ -18,9 +16,10 @@ export const signUpUser = async (email, password) => {
 
 // Sign In User
 export const signInUser = async (email, password) => {
+
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log('User signed in:', userCredential.user);
+    const userCredential = await axios.post(`${baseUrl}/signin`, { email, password });
+
     return userCredential.user;
   } catch (error) {
     console.error('Error signing in:', error.message);
@@ -31,8 +30,7 @@ export const signInUser = async (email, password) => {
 // Sign Out User
 export const signOutUser = async () => {
   try {
-    await signOut(auth);
-    console.log('User signed out');
+    await axios.post(`${baseUrl}/signout`);
   } catch (error) {
     console.error('Error signing out:', error.message);
     throw error;
@@ -41,15 +39,16 @@ export const signOutUser = async () => {
 
 // Track Auth State
 export const trackAuthState = (callback) => {
-  onAuthStateChanged(auth, (user) => {
-    callback(user);
-  });
+  axios.get(`${baseUrl}/trackAuthState`)
+    .then(response => {
+      callback(response.data);
+    })
+    .catch(error => {
+      console.error('Error tracking auth state:', error.message);
+      throw error;
+    });
 };
-
-
-
-
-
+  
 
 
 export default {

@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000/api/'
+const baseUrl = '/api'
 
 //Search for albums 
 const searchAlbums = async (search) => {
