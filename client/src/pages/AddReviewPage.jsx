@@ -53,7 +53,7 @@ const AddReviewPage = () => {
                     response = await spotify.searchTracks(query);
                 }
                 setResults(response);
-                
+
             } catch (error) {
                 console.error('Error fetching data:', error.message);
             } finally {
@@ -97,21 +97,21 @@ const AddReviewPage = () => {
                     className={`artist-button ${activeButton === 'artist' ? 'active' : ''}`}
                     onClick={() => handleButtonClick('artist')} 
                 >
-                    Artist
+                    Artists
                 </button>
 
                 <button
                     className={`album-button ${activeButton === 'album' ? 'active' : ''}`}
                     onClick={() => handleButtonClick('album')}
                 >
-                    Album
+                    Albums
                 </button>
 
                 <button
                     className={`track-button ${activeButton === 'track' ? 'active' : ''}`}
                     onClick={() => handleButtonClick('track')}
                 >
-                    Track
+                    Songs
                 </button>
             </div>
 

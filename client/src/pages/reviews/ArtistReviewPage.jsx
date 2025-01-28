@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import TitleReview from '../../components/TitleReview';
 import { trackAuthState } from '../../controllers/auth';
 import userController from '../../controllers/user';
+import spotify from '../../controllers/spotify';
+import blogController from '../../controllers/blog';
 
 const ArtistReviewPage = ({ itemDetails }) => {
     const { id } = useParams();
@@ -29,8 +31,8 @@ const ArtistReviewPage = ({ itemDetails }) => {
                 setUsername(userInfo.username);
 
 
-                const response = await axios.get(`http://localhost:3000/api/artists/albums/${id}`);
-                setAlbums(response.data);
+                const response = await spotify.searchArtistAlbums(id);
+                setAlbums(response);
             } catch (error) {
                 console.error("Error fetching albums:", error);
             }
@@ -68,7 +70,7 @@ const ArtistReviewPage = ({ itemDetails }) => {
     const handleBlogSubmit = async () => {
         try {
 
-            const response = await axios.post('http://localhost:3000/api/blogs', {
+            const response = blogController.postBlog({
                 title: title,
                 description: review,
                 type: 'artist',
@@ -97,7 +99,7 @@ const ArtistReviewPage = ({ itemDetails }) => {
                     <p>Genres: {itemDetails.genres.join(', ')}</p>
 
                 </div>
-                <div className="track-review-box-artist">
+                <div id = "track-review-box-artist"className="track-review-box-artist">
                     <h1>Add a Review</h1>
                     <h3>Summarize your review in a few words</h3>   
                     <TitleReview handleTitleChange={handleTitleChange} />

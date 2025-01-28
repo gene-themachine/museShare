@@ -4,7 +4,7 @@ import axios from 'axios';
 import AlbumReviewPage from './reviews/AlbumReviewPage'; // Import AlbumReviewPage
 import ArtistReviewPage from './reviews/ArtistReviewPage'; // Import ArtistReviewPage
 import TrackReviewPage from './reviews/TrackReviewPage';
-
+import spotify from '../controllers/spotify';
 const ReviewPage = () => {
     const { id } = useParams(); // Get the ID from the URL
     const location = useLocation();
@@ -21,9 +21,23 @@ const ReviewPage = () => {
             try {
                 const queryParams = getQueryParams(location.search);
                 const type = queryParams.get('type');
+                let response; // Declare response variable
 
-                const response = await axios.get(`http://localhost:3000/api/${type}s/${id}`);
-                setItemDetails(response.data);
+                switch (type) {
+                    case 'album':
+                        response = await spotify.searchAlbumById(id); // Assign response
+                        break;
+                    case 'artist':
+                        response = await spotify.searchArtistById(id); // Assign response
+                        break;
+                    case 'track':
+                        response = await spotify.searchTrackById(id); // Assign response
+                        break;
+                    default:
+                        throw new Error('Invalid type'); // Handle unexpected types
+                }
+
+                setItemDetails(response);
             } catch (error) {
                 console.error('Error fetching item details:', error.message);
                 setError('Failed to load item details.'); // Set error message

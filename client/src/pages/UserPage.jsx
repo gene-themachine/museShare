@@ -64,18 +64,18 @@ const UserPage = () => {
             const updatedBlogsData = await Promise.all(
                 blogsData.map(async (blog) => {
                     try {
-                        const trackResponse = await axios.get(`http://localhost:3000/api/tracks/${blog.item_id}`);
+                        const trackResponse = await spotify.searchTrackById(blog.item_id);
     
-                        if (!trackResponse.data) {
+                        if (!trackResponse) {
                             throw new Error('No data received from track API');
                         }
     
                         return { 
                             ...blog, 
-                            name: trackResponse.data.name, 
-                            artist: trackResponse.data.artist, 
-                            album: trackResponse.data.album, 
-                            cover_url: trackResponse.data.cover_url 
+                            name: trackResponse.name, 
+                            artist: trackResponse.artist, 
+                            album: trackResponse.album, 
+                            cover_url: trackResponse.cover_url 
                         }; 
                     } catch (error) {
                         console.error(`Error fetching track data for ID ${blog.item_id}:`, error);
@@ -196,7 +196,7 @@ const UserPage = () => {
     return (
         <div className="user-page">
               <div className="user-info">
-                <img src='https://i.scdn.co/image/ab6761610000e5ebc36dd9eb55fb0db4911f25dd' alt="profile-picture" className="user-profile-picture" />
+                <img src='../../user.png' alt="profile-picture" className="user-profile-picture" />
           
                 <h2 id = "user-name">{userInfo.name}</h2>
                 <p>Genre: {user.genre || 'Unknown Genre'}</p>

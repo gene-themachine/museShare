@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const baseUrl = '/api/auth';
+const baseUrl = 'http://localhost:3000/api/auth';
 
 // Sign Up User
 export const signUpUser = async (email, password) => {
   try {
     const userCredential = await axios.post(`${baseUrl}/signup`, { email, password });
-
-    return userCredential.user;
+    console.log(userCredential);
+    return userCredential;
   } catch (error) {
     console.error('Error signing up:', error.message);
     throw error;
@@ -19,8 +19,10 @@ export const signInUser = async (email, password) => {
 
   try {
     const userCredential = await axios.post(`${baseUrl}/signin`, { email, password });
+    console.log(userCredential);
 
-    return userCredential.user;
+    return userCredential;
+
   } catch (error) {
     console.error('Error signing in:', error.message);
     throw error;
@@ -55,6 +57,5 @@ export default {
   signUpUser,
   signInUser,
   signOutUser,
-  trackAuthState,
-
+  trackAuthState
 };

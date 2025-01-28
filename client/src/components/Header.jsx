@@ -7,6 +7,12 @@ import AlbumResult from '../pages/SearchResults/AlbumResult';
 import TrackResult from '../pages/SearchResults/TrackResult';
 import UserResult from '../pages/SearchResults/UserResult';
 import { RxHamburgerMenu } from "react-icons/rx";
+import spotifyRouter from '../controllers/spotify';
+import userRouter from '../controllers/user';
+import userController from '../controllers/user';
+import spotifyController from '../controllers/spotify';
+
+
 
 const Header = () => {
     const [user, setUser] = useState(null);
@@ -16,6 +22,7 @@ const Header = () => {
     const [results, setResults] = useState([]); // Add this new state
     const [loading, setLoading] = useState(false); // Loading state for API calls
     const [menuOpen, setMenuOpen] = useState(false); // State to track menu open/close
+
     const navigate = useNavigate();
 
 
@@ -25,6 +32,24 @@ const Header = () => {
         setUser(currentUser);
       });
     }, []);
+
+    const fetchSearchResults = async (query, apiEndpoint) => {
+      let response;
+      switch (apiEndpoint) {
+          case 'track':
+              response = await spotifyController.searchTracks(query);
+              break;
+          case 'album':
+              response = await spotifyController.searchAlbums(query);
+              break;
+          case 'artist':
+              response = await spotifyController.searchArtists(query);
+              break;
+          default:
+              throw new Error('Invalid API endpoint');
+      }
+      return response;
+  };
   
     const handleSearchChange = async (e) => {
       const query = e.target.value;
@@ -34,17 +59,13 @@ const Header = () => {
         setLoading(true);
         try {
           if (filter === 'users') {
-            const response = await axios.get(`http://localhost:3000/api/users/profile`, {
-              params: { name: query }
-            });
-            setResults(response.data.slice(0, 3));
+            const response = await userController.searchUsers(query);
+            setResults(response.slice(0, 3));
           } else {
             const endpoint = filter.slice(0, -1);
             const apiEndpoint = endpoint === 'song' ? 'track' : endpoint;
-            const response = await axios.get(`http://localhost:3000/api/${apiEndpoint}s`, { 
-              params: { query } 
-            });
-            setResults(response.data.slice(0, 5));
+            const response = await fetchSearchResults(query, apiEndpoint);
+            setResults(response.slice(0, 5));
           }
         } catch (error) {
           console.error('Error fetching search results:', error);
@@ -66,21 +87,16 @@ const Header = () => {
           let response;
           switch (type) {
             case 'users':
-              response = await axios.get(`http://localhost:3000/api/users/profile`, {
-                params: { name: search }
-              });
-              setResults(response.data.slice(0, 3));
+              response = await userController.searchUsers(search);
+              setResults(response.slice(0, 3));
               break;
             default:
               const endpoint = type.slice(0, -1);
               const apiEndpoint = endpoint === 'song' ? 'track' : endpoint;
-              response = await axios.get(`http://localhost:3000/api/${apiEndpoint}s`, {
-                params: { query: search }
-              });
-              setResults(response.data.slice(0, 5));
+              response = await fetchSearchResults(search, apiEndpoint);
+              setResults(response.slice(0, 5));
           }
         } catch (error) {
-
           setResults([]);
         } finally {
           setLoading(false);
@@ -148,6 +164,7 @@ const Header = () => {
       setSearch('');
       setResults([]);
       navigate(`/profile/others/${item.uid}`);
+      closeMenu();
     };
   
     const toggleMenu = () => {
@@ -163,6 +180,13 @@ const Header = () => {
         navigate(`/profile/${user.uid}`);
       }
     };
+
+    const handleSignOut = async () => {
+      await signOutUser();
+      closeMenu();
+      setUser(null);
+    };
+
 
     return (
       <header>
@@ -234,7 +258,7 @@ const Header = () => {
               {menuOpen && (
                 <div className="dropdown-menu">
                   <button onClick={viewUserProfile}>Profile</button>
-                  <button onClick={signOutUser}>Sign Out</button>
+                  <button onClick={handleSignOut}>Sign Out</button>
                   
                 </div>
               )}

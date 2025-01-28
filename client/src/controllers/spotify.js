@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api'
+const baseUrl = 'http://localhost:3000/api'
 
 //Search for albums 
 const searchAlbums = async (search) => {
@@ -37,5 +37,12 @@ const searchTrackById = async (id) => {
     return response.data
 }
 
-export default { searchAlbums, searchArtists, searchTracks, searchAlbumById, searchArtistById, searchTrackById }
+
+//Search for an artist's albums
+const searchArtistAlbums = async (id) => {
+    const response = await axios.get(`${baseUrl}/artists/albums/${id}`)
+    return response.data
+}
+
+export default { searchAlbums, searchArtists, searchTracks, searchAlbumById, searchArtistById, searchTrackById, searchArtistAlbums }
 

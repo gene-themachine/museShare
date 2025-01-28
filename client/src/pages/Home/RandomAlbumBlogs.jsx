@@ -1,6 +1,8 @@
 import AlbumHomeBlog from '../../components/AlbumHomeBlog';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import blogController from '../../controllers/blog';
+import spotify from '../../controllers/spotify';
 
 const RandomAlbumBlogs = () => {
 
@@ -11,23 +13,22 @@ const RandomAlbumBlogs = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/blogs/random/album');
-                const blogsData = response.data;
+                const response = await blogController.getRandomAlbums();
+                const blogsData = response;
                 setBlogs(blogsData);
                 
                 // Fetch photos for each blog and update blogData with photo URLs
                 const updatedBlogsData = await Promise.all(
                     blogsData.map(async (blog) => {
 
-                        const photoResponse = await axios.get(`http://localhost:3000/api/albums/${blog.item_id}`)
-                        ;
-                        const coverUrl = photoResponse.data.cover_url;
+                        const photoResponse = await spotify.searchAlbumById(blog.item_id);
+                        const coverUrl = photoResponse.cover_url;
                         return { 
                             ...blog, 
                             cover_url: coverUrl, 
-                            artist: photoResponse.data.artist, 
-                            name: photoResponse.data.name, 
-                            release_date: photoResponse.data.release_date 
+                            artist: photoResponse.artist, 
+                            name: photoResponse.name, 
+                            release_date: photoResponse.release_date 
                         }; 
                     })
                 );

@@ -20,8 +20,15 @@ const ViewReviewPage = () => {
                     return;
                 }
                 
-                const response = await axios.get(`http://localhost:3000/api/${type}s/${id}`);
-                setItemDetails(response.data);
+                let response;
+                if (type === 'album') {
+                    response = await spotify.searchAlbumById(id);
+                } else if (type === 'artist') {
+                    response = await spotify.searchArtistById(id);
+                } else if (type === 'track') {
+                    response = await spotify.searchTrackById(id);
+                }
+                setItemDetails(response);
             } catch (error) {
                 console.error('Error fetching item details:', error.message);
                 setError('Failed to load item details.');

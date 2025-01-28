@@ -2,7 +2,7 @@ import ArtistHomeBlog from '../../components/ArtistHomeBlog';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import blogController from '../../controllers/blog';
-
+import spotify from '../../controllers/spotify';
 const RandomArtistBlogs = () => {
 
     const [blogs, setBlogs] = useState([]);
@@ -22,14 +22,14 @@ const RandomArtistBlogs = () => {
                     blogsData.map(async (blog) => {
 
 
-                        const artistResponse = await axios.get(`http://localhost:3000/api/artists/${blog.item_id}`);
+                        const artistResponse = await spotify.searchArtistById(blog.item_id);
 
                         return { 
                             ...blog, 
-                            name: artistResponse.data.name, 
-                            genres: artistResponse.data.genres, 
-                            followers: artistResponse.data.followers,
-                            cover_url: artistResponse.data.image_url
+                            name: artistResponse.name, 
+                            genres: artistResponse.genres, 
+                            followers: artistResponse.followers,
+                            cover_url: artistResponse.image_url
                         }; 
                     })
                 );

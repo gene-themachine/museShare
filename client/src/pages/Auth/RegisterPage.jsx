@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { signUpUser } from '../../controllers/auth';
-import axios from 'axios';
+import userController from '../../controllers/user';
 
 const RegisterPage = () => {
     const [email, setEmail] = useState('')
@@ -15,12 +15,9 @@ const RegisterPage = () => {
         e.preventDefault();
         try {
           const user = await signUpUser(email, password); 
-          const response = await axios.post('http://localhost:3000/api/users', {
-              email: email,
-              name: name,
-              username: username,
-              uid: user.uid
-          })
+
+          
+          const response = await userController.createUser(email, name, username, user.data.uid);
 
           navigate('/');          
         } catch (error) {

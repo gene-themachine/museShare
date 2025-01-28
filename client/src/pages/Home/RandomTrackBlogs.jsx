@@ -2,6 +2,10 @@ import TrackHomeBlog from '../../components/TrackHomeBlog';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import spotify from '../../controllers/spotify';
+import blogController from '../../controllers/blog';
+
+
 const RandomTrackBlogs = () => {
 
     const [blogs, setBlogs] = useState([]);
@@ -11,23 +15,22 @@ const RandomTrackBlogs = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/blogs/random/track');
-                const blogsData = response.data;
+                const response = await blogController.getRandomTracks();
+                const blogsData = response;
                 setBlogs(blogsData);
                 
                 // Fetch photos for each blog and update blogData with photo URLs
                 const updatedBlogsData = await Promise.all(
                     blogsData.map(async (blog) => {
 
-                        const photoResponse = await axios.get(`http://localhost:3000/api/tracks/${blog.item_id}`)
-                        ;
-                        const coverUrl = photoResponse.data.cover_url;
+                        const photoResponse = await spotify.searchTrackById(blog.item_id);
+                        const coverUrl = photoResponse.cover_url;
                         return { 
                             ...blog, 
                             cover_url: coverUrl, 
-                            artist: photoResponse.data.artist, 
-                            name: photoResponse.data.name, 
-                            release_date: photoResponse.data.release_date 
+                            artist: photoResponse.artist, 
+                            name: photoResponse.name, 
+                            release_date: photoResponse.release_date 
                         }; 
                     })
                 );

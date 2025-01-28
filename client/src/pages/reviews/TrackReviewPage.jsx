@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { trackAuthState } from '../../controllers/auth';
 import userController from '../../controllers/user';
-
+import blogController from '../../controllers/blog';
 
 const TrackReviewPage = ({ itemDetails }) => {
     const { id } = useParams();
@@ -38,7 +38,7 @@ const TrackReviewPage = ({ itemDetails }) => {
 
     const handleBlogSubmit = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/api/blogs', {
+            const response = await blogController.postBlog({
                 title: title,
                 description: review,
                 type: 'track',

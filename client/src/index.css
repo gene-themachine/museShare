@@ -27,7 +27,6 @@ header {
 header a, header button.auth {
   text-decoration: none;
   color: inherit;
-  margin-bottom: 50px;
   font-family: 'Bangers', sans-serif;
 }
 
@@ -315,8 +314,8 @@ form h1 {
     flex-direction: column;
     align-items: center;
   }
-  .track-review-box-artist, .album-review-box-artist, .artist-review-box-artist {
-    width: 300px;
+  .track-review-box-artist, .album-review-box-artist, .track-review-box-artist {
+    width: 350px;
     height: 600px;
   }
 }
@@ -324,7 +323,7 @@ form h1 {
 .review-box {
   flex-shrink: 0;
   width: 400px;
-  height: 300px;
+  height: 350px;
   margin-top: 0;
 }
 
@@ -879,7 +878,7 @@ nav a:hover, .filter-button:hover, .clear-button:hover, .submit-button:hover {
   color: #000;
 }
 
-.track-review-box-artist {
+#track-review-box-artist {
   background-color: #20c760;
   padding: 20px;
   border-radius: 10px;

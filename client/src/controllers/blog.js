@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/blogs'
+const baseUrl = 'http://localhost:3000/api/blogs'
 
 const postBlog = async (blog) => {
     const response = await axios.post(baseUrl, blog)

@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { trackAuthState } from '../../controllers/auth';
 import userController from '../../controllers/user';
+import spotify from '../../controllers/spotify';
+import blogController from '../../controllers/blog';
 
 
 const AlbumReviewPage = ({ itemDetails }) => {
@@ -35,8 +37,8 @@ const AlbumReviewPage = ({ itemDetails }) => {
 
         const fetchAlbumData = async () => {
             try {                    
-                const response = await axios.get(`http://localhost:3000/api/albums/${id}`);
-                setItemDetailsCopy(response.data);
+                const response = await spotify.searchAlbumById(id);
+                setItemDetailsCopy(response);
             } catch (error) {
                 console.error('Error fetching album data:', error.message);
             }
@@ -62,9 +64,7 @@ const AlbumReviewPage = ({ itemDetails }) => {
 
     const handleBlogSubmit = async () => {
         try {
-
-            
-            const response = await axios.post('http://localhost:3000/api/blogs', {
+            const response = await blogController.postBlog({
                 title: title,
                 description: review,
                 type: 'album',
