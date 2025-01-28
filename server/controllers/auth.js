@@ -55,11 +55,10 @@ authRouter.post('/signout', async (req, res) => {
 // Track Auth State
 authRouter.get('/trackAuthState', (req, res) => {
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-            return res.json(user);
-        } else {
-            return res.status(404).json({ error: 'No user found' });
+        if (res.headersSent) {
+            return; // Prevent sending a response if headers are already sent
         }
+        res.json(user);
     });
 });
 

@@ -44,14 +44,14 @@ blogsRouter.get('/:id', async (req, res) => {
 //Get 3 random blogs. Used for the home page. 
 blogsRouter.get('/random/album', async (req, res) => {
     const blogs = await Blog.find({type: 'album'});
-    const randomBlogs = blogs.sort(() => Math.random() - 0.5).slice(0, 3);
+    const randomBlogs = blogs.sort(() => Math.random() - 0.5).slice(0, 4);
     res.json(randomBlogs);
 });
 
 //Get 3 random blogs. Used for the home page. 
 blogsRouter.get('/random/artist', async (req, res) => {
     const blogs = await Blog.find({type: 'artist'});
-    const randomBlogs = blogs.sort(() => Math.random() - 0.5).slice(0, 3);
+    const randomBlogs = blogs.sort(() => Math.random() - 0.5).slice(0, 4);
     res.json(randomBlogs);
 });
 
@@ -59,7 +59,7 @@ blogsRouter.get('/random/artist', async (req, res) => {
 //Get 3 random blogs. Used for the home page. 
 blogsRouter.get('/random/track', async (req, res) => {
     const blogs = await Blog.find({type: 'track'});
-    const randomBlogs = blogs.sort(() => Math.random() - 0.5).slice(0, 3);
+    const randomBlogs = blogs.sort(() => Math.random() - 0.5).slice(0, 4);
     res.json(randomBlogs);
 });
 

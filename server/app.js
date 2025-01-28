@@ -9,6 +9,7 @@ const blogsRouter = require('./controllers/blogs');
 const spotifyRouter = require('./controllers/spotify');
 const usersRouter = require('./controllers/users');
 const authRouter = require('./controllers/auth');
+const youtubeRouter = require('./controllers/youtube');
 const app = express();
 
 mongoose
@@ -29,6 +30,8 @@ app.use('/api/users', usersRouter);
 app.use('/api/blogs', blogsRouter);
 app.use('/api', spotifyRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/youtube', youtubeRouter);
+
 
 
 
