@@ -1,7 +1,7 @@
 # MuseShare
 ![alt text](./pictures/home.png)
 
-This is my 25w DALI lab Developer Challenge. 
+This is my 25w DALI lab Developer Challenge (API Challenge)
 
 DEPLOYED-URL: [MuseShare](https://museshare.onrender.com/)
 
