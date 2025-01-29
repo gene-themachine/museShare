@@ -3,7 +3,7 @@
 
 This is my 25w DALI lab Developer Challenge. 
 
-DEPLOYED-URL: [MuseShare](https://react-intro-gene-themachine.onrender.com/)
+DEPLOYED-URL: ## [MuseShare](https://react-intro-gene-themachine.onrender.com/)
 
 MuseShare is a web application designed for music enthusiasts to review their favorite albums, artists, and tracks. 
 You can also view your friends and other user's reviews. It utilizes the MERN stack.
