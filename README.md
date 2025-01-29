@@ -99,15 +99,22 @@ To get started with MuseShare, follow these steps:
    ```
 
 
-## Learning Journey
+## Learning Journey  
 
-  This was the biggest project I've developed, and I've never used the MERN at such a big scale. Previously, some of the projects I've completed was a note application and a phonebook application, very simple and smaller projects. Although, I had similar experience with HTML, CSS, and javascript, I've only started learning react and full stack web dev towards the end of fall last year and only learned a great deal during the winterim and very much enjoyed the process. If you look at some of my old projects / dali app submissions from before, you could see that they are drastically different in functionality and style. Throughout this project, I've learned a great deal. This was the first time I've used Firebase authentication. I learned how to style things better and also some tips that could expedite my projects in the future. For example, at first I called the api request within a component instead of calling it from a controller. I did this for a while until I had to go back and fix them and call the controller instead. I also should've named things better looking back. Although I do have some experience with ESLint, I did not have enough time to implement it for this project. 
+This was the biggest project I've ever developed, and it was my first time using the MERN stack at such a large scale. Before this, my experience was mostly with smaller projects, like a note-taking app and a phonebook application—both much simpler in scope. While I had prior experience with HTML, CSS, and JavaScript, I only started learning React and full-stack web development toward the end of last fall. It wasn’t until winterim that I really immersed myself in it.  
 
-## Looking Forward
-  
-  I have many aspirations for this project. 
-  I want users to be able to befriend each other and display the friend's reviews on Home, so the main user can know what their friends are listening to. 
-  I also want to add lyrics for the trackviews and the users to be able to highlight sections of the lyrics they want to talk about. 
-  I'd also like improve some spacing and placements. 
+Looking back at my older projects and DALI app submissions, the difference in both functionality and style is drastic. Throughout this project, I’ve learned so much. This was my first time implementing Firebase Authentication, and I also picked up better styling techniques and small efficiency tricks that will speed up my workflow in the future. For instance, early on, I was calling API requests directly within components instead of through a controller. It wasn’t until later that I realized the need to restructure it, which led to a lot of backtracking. In hindsight, I also could have named things more clearly. While I have some experience with ESLint, I didn’t have enough time to implement it for this project—but that’s something I plan to improve on.  
+
+---
+
+## Looking Forward  
+
+I have a lot of aspirations for this project.  
+
+- I want users to be able to befriend each other and display their friends' reviews on the Home page so they can see what their friends are listening to.  
+- I’d love to add lyrics to the track views, allowing users to highlight sections they want to discuss.  
+- Improving spacing and placement throughout the site. 
+- I plan to build a proper landing page for users who aren’t logged in and create a more personalized homepage for active users. Instead of displaying three random reviews and three personal reviews, I’d like to refine this layout and add filtering options.  
+- Since this is an entertainment site, I also want to focus more on aesthetics—adding  animations and improving the overall design to give it a modern style. 
 
 
