@@ -1,5 +1,5 @@
 # MuseShare
-![alt text](https://github.com/[gene-themachine]/[museShare]/blob/[main]/pics/home.png?raw=true)
+![alt text](./pics/home.png)
 
 MuseShare is a web application designed for music enthusiasts to share and review their favorite albums, artists, and tracks. 
 
