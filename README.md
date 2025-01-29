@@ -39,7 +39,7 @@ experience this problem, please give it some time to try it again.
   - React Router for navigation
   - Axios for API calls
   - Youtube API
-  - Spotify API
+  - Spotify API (Just within the song review pages)
 
 - **Backend**: 
   - Node.js
@@ -97,6 +97,9 @@ To get started with MuseShare, follow these steps:
    cd client
    npm run dev
    ```
+   
+## Navigating the Website
+On the bottom right, there is + icon, where you can search aritsts, albums, and songs and leave reviews. On the top, there is also a search bar where you can see the reviews and other users as well. Try to find me. On top right inside the hamburger menu, there is a profile option that shows your reviewed music. 
 
 
 ## Learning Journey  
