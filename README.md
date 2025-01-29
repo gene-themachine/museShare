@@ -62,6 +62,7 @@ To get started with MuseShare, follow these steps:
 
 5. Set up your environment variables in a `.env` file in the server directory.
    Needed variables:
+     ```
       PORT
       MONGODB_URI
       SPOTIFY_CLIENT_ID
@@ -72,14 +73,15 @@ To get started with MuseShare, follow these steps:
       FIREBASE_STORAGE_BUCKET
       FIREBASE_MESSAGING_SENDER_ID
       FIREBASE_APP_ID
-      YOUTUBE_API_KEY   
+      YOUTUBE_API_KEY
+     ```
 
-6. Start the backend server:
+7. Start the backend server:
    ```
    npm run dev
    ```
 
-7. In a new terminal, start the frontend:
+8. In a new terminal, start the frontend:
    ```
    cd client
    npm run dev
