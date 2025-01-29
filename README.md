@@ -1,5 +1,5 @@
 # MuseShare
-![alt text](./pics/home.png)
+![alt text](./pictures/home.png)
 
 MuseShare is a web application designed for music enthusiasts to share and review their favorite albums, artists, and tracks. 
 
