@@ -15,31 +15,23 @@ const ViewAlbumReviews = ({ itemDetails }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-
         const fetchReviews = async () => {
             try {
-
                 const response = await blogController.getBlogsByAlbum(id);
                 setReviews(response.data);
                 if (response.data.length > 0) {
                     // Calculate the average rating
-                    let totalRating = 0;
-                    response.data.forEach(review => {
-                    totalRating += review.rating;
-                    });
-                    const averageRating = response.data.length ? totalRating / response.data.length : 0;
+                    const totalRating = response.data.reduce((acc, review) => acc + review.rating, 0);
+                    const averageRating = totalRating / response.data.length;
                     setRating(averageRating);
                     setStarLoaded(true);
                 }
             } catch (error) {
                 console.error('Error fetching reviews:', error.message);
             }
-
-
         };
 
         fetchReviews();
-        
     }, [id]);
 
     const handleFilterClick = (rating) => {
@@ -50,11 +42,10 @@ const ViewAlbumReviews = ({ itemDetails }) => {
         ? reviews.filter(review => review.rating === selectedRating)
         : reviews;
 
-
-
     const handleReviewClick = (review) => {
         navigate(`/view-a-review/${review.id}`);
-    }
+    };
+
     return (
         <div className="album-review">
             <div className="album-header" id="album-header">
@@ -71,18 +62,14 @@ const ViewAlbumReviews = ({ itemDetails }) => {
 
                 <div className="view-reviews">
                     <h1 className="absolute-reviews">Reviews</h1>
-                    
                     {starLoaded ? (
-                    <div className="star-rating">
-
-                        
-                        <span className="average-rating-stars-text" >Average Rating:  {rating} ★</span>
-                    </div>
+                        <div className="star-rating">
+                            <span className="average-rating-stars-text">Average Rating: {rating} ★</span>
+                        </div>
                     ) : (
-                        <div>{reviews.length === 0 && <div>No reviews yet</div> } </div>
+                        <div>{reviews.length === 0 && <div>No reviews yet</div>}</div>
                     )}
                     <div className="review-divider"></div>
-
 
                     <div id="review-filter-option-title">Filter by rating</div>
                     <div className="review-filter-option">
@@ -99,21 +86,13 @@ const ViewAlbumReviews = ({ itemDetails }) => {
 
                     <div className="review-divider"></div>
 
-
-                    
-
                     <div id="reviews-container">
                         {filteredReviews.map((review, index) => (
-                            <OneReview key={index} review={review} type="album"/>
-
+                            <OneReview key={index} review={review} type="album" />
                         ))}
                     </div>
-                    
-
-
                 </div>
             </div>
-
         </div>
     );
 };

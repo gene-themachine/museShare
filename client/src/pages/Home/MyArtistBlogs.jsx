@@ -35,7 +35,7 @@ const MyArtistBlogs = () => {
                                     name: photoResponse.name, 
                                 }; 
                             } catch (error) {
-                                console.error(`Error fetching album data for ID ${blog.item_id}:`, error);
+                                console.error(`Error fetching artist data for ID ${blog.item_id}:`, error);
                                 return {
                                     ...blog,
                                     cover_url: null,
@@ -44,8 +44,8 @@ const MyArtistBlogs = () => {
                             }
                         })
                     );
-                    setBlogInfo(updatedBlogsData);
 
+                    setBlogInfo(updatedBlogsData);
                 }
             } catch (error) {
                 console.error('Error fetching blogs or photos:', error);

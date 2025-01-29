@@ -1,8 +1,10 @@
 # MuseShare
+![alt text](https://github.com/[gene-themachine]/[museShare]/blob/[main]/pics/home.png?raw=true)
 
 MuseShare is a web application designed for music enthusiasts to share and review their favorite albums, artists, and tracks. 
 
 ## Features
+
 
 - **User Authentication**: Users can register, log in, and manage their profiles.
 - **Music Reviews**: Users can create and share reviews for albums, artists, and tracks.

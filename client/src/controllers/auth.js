@@ -6,7 +6,6 @@ const baseUrl = '/api/auth';
 export const signUpUser = async (email, password) => {
   try {
     const userCredential = await axios.post(`${baseUrl}/signup`, { email, password });
-    console.log(userCredential);
     return userCredential;
   } catch (error) {
     console.error('Error signing up:', error.message);
@@ -16,13 +15,9 @@ export const signUpUser = async (email, password) => {
 
 // Sign In User
 export const signInUser = async (email, password) => {
-
   try {
     const userCredential = await axios.post(`${baseUrl}/signin`, { email, password });
-    console.log(userCredential);
-
     return userCredential;
-
   } catch (error) {
     console.error('Error signing in:', error.message);
     throw error;
@@ -40,18 +35,15 @@ export const signOutUser = async () => {
 };
 
 // Track Auth State
-export const trackAuthState = (callback) => {
-  axios.get(`${baseUrl}/trackAuthState`)
-    .then(response => {
-      callback(response.data);
-    })
-    .catch(error => {
-      console.error('Error tracking auth state:', error.message);
-      throw error;
-    });
+export const trackAuthState = async (callback) => {
+  try {
+    const response = await axios.get(`${baseUrl}/trackAuthState`);
+    callback(response.data);
+  } catch (error) {
+    console.error('Error tracking auth state:', error.message);
+    throw error;
+  }
 };
-  
-
 
 export default {
   signUpUser,

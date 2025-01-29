@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import ViewAlbumReviews from './ViewReview/ViewAlbumReviews';
 import ViewArtistReviews from './ViewReview/ViewArtistReviews';
 import ViewTracksReviews from './ViewReview/ViewTracksReviews';
-
+import spotify from '../controllers/spotify';
 
 const ViewReviewPage = () => {
     const { id, type } = useParams(); // Get both ID and type from URL params
     const [itemDetails, setItemDetails] = useState(null);
     const [error, setError] = useState(null);
-
 
     useEffect(() => {
         const fetchItemDetails = async () => {
@@ -48,9 +46,9 @@ const ViewReviewPage = () => {
 
     return (
         <div className="review-page">
-            {type === 'album' && <ViewAlbumReviews itemDetails={itemDetails}/>}
-            {type === 'artist' && <ViewArtistReviews itemDetails={itemDetails}/>}
-            {type === 'track' && <ViewTracksReviews itemDetails={itemDetails}/>}
+            {type === 'album' && <ViewAlbumReviews itemDetails={itemDetails} />}
+            {type === 'artist' && <ViewArtistReviews itemDetails={itemDetails} />}
+            {type === 'track' && <ViewTracksReviews itemDetails={itemDetails} />}
         </div>
     );
 };

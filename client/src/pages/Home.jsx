@@ -10,16 +10,12 @@ import blogController from '../controllers/blog';
 import RandomTrackBlogs from './Home/RandomTrackBlogs';
 import MyArtistBlogs from './Home/MyArtistBlogs';
 
-
-
 function Home() {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [albumBlogs, setAlbumBlogs] = useState([]);
     const [artistBlogs, setArtistBlogs] = useState([]);
     const [trackBlogs, setTrackBlogs] = useState([]);
-
-
 
     useEffect(() => {
         trackAuthState(async (currentUser) => {
@@ -31,11 +27,9 @@ function Home() {
                 const trackResponse = await blogController.getMyTracks(currentUser.uid);
                 
                 setAlbumBlogs(albumResponse.data);
-
                 setArtistBlogs(artistResponse.data);
                 setTrackBlogs(trackResponse.data);
             }
-
         });
     }, []);
 
@@ -45,65 +39,53 @@ function Home() {
 
     return (
         <div>
-
-
-            
             <div className="blogs-container">
                 <div className="blogs-container-top">
-                    <h2 className="random-blogs-title">Random Album Reviews</h2>
+                    <h2 className="random-blogs-title">Explore Album Reviews</h2>
                     <RandomAlbumBlogs />
                 </div>
-
-
             </div>
 
             <div className="blogs-container">
                 <div className="blogs-container-bottom">
-                    <h2 className="random-blogs-title">Random Artist Reviews</h2>
+                    <h2 className="random-blogs-title">Explore Artist Reviews</h2>
                     <RandomArtistBlogs />
                 </div>
             </div>
 
             <div className="blogs-container">
                 <div className="blogs-container-bottom">
-                    <h2 className="random-blogs-title">Random Track Reviews</h2>
+                    <h2 className="random-blogs-title">Explore Track Reviews</h2>
                     <RandomTrackBlogs />
                 </div>
             </div>
 
-
-            
-            {albumBlogs.length > 0 && 
-            <div className="blogs-container">
-                <div className="blogs-container-bottom">
-                    <h2 className="random-blogs-title">My Album Reviews</h2>
-                    <MyAlbumBlogs />
+            {albumBlogs.length > 0 && (
+                <div className="blogs-container">
+                    <div className="blogs-container-bottom">
+                        <h2 className="random-blogs-title">My Album Reviews</h2>
+                        <MyAlbumBlogs />
+                    </div>
                 </div>
-            </div>
-            }
+            )}
 
-
-
-            {trackBlogs.length > 0 &&
-            <div className="blogs-container">
-                <div className="blogs-container-bottom">
-                    <h2 className="random-blogs-title">My Track Reviews</h2>
-                    <MyTrackBlogs />
+            {trackBlogs.length > 0 && (
+                <div className="blogs-container">
+                    <div className="blogs-container-bottom">
+                        <h2 className="random-blogs-title">My Track Reviews</h2>
+                        <MyTrackBlogs />
+                    </div>
                 </div>
-            </div>
-            }
+            )}
 
-            {artistBlogs.length > 0 &&
-            <div className="blogs-container">
-                <div className="blogs-container-bottom">
-                    <h2 className="random-blogs-title">My Artist Reviews</h2>
-                    <MyArtistBlogs />
+            {artistBlogs.length > 0 && (
+                <div className="blogs-container">
+                    <div className="blogs-container-bottom">
+                        <h2 className="random-blogs-title">My Artist Reviews</h2>
+                        <MyArtistBlogs />
+                    </div>
                 </div>
-            </div>
-            } 
-
-            
-
+            )}
 
             {user && (
                 <div 
@@ -113,9 +95,7 @@ function Home() {
                 >
                     +
                 </div>
-                
             )}
-
         </div>
     );
 }

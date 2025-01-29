@@ -31,11 +31,7 @@ const UserTrackBlog = ({ info }) => {
                         
                         <div className="user-home-blog-text-bottom">
                             <p>{info.title}</p>
-
-                            <p>- {info.email}</p>
-                            <div className="user-home-blog-star-rating">
-                                
-                            </div>
+                            <p>- {info.username}</p>
                         </div>
                     </div>
                 </div>

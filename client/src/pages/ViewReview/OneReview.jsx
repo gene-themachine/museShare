@@ -4,16 +4,10 @@ import { useNavigate } from 'react-router-dom';
 const OneReview = ({ review, type }) => {
     const navigate = useNavigate();
 
-
-
-
-
     const handleReviewClick = (review, type) => {
         navigate(`/view-a-review/${type}s/${review._id}`);
     }
-
-
-
+    
     return (
         <button id="review-result-item" className="review-button" onClick={() => handleReviewClick(review ,type)}>
             <div className="review-result-rating">

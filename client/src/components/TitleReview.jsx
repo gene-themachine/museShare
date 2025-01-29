@@ -1,14 +1,10 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 
 const TitleReview = ({ handleTitleChange }) => {
+    // State variables
     const [inputValue, setInputValue] = useState('');
-    const [words, setWords] = useState([]);
-    const [results, setResults] = useState([]);
-    
 
-
-
+    // Handle input change and enforce word limit
     const handleInputChange = async (event) => {
         const value = event.target.value;
         const wordCount = value.trim().split(/\s+/).length;
@@ -18,8 +14,6 @@ const TitleReview = ({ handleTitleChange }) => {
             handleTitleChange(value);
         }
     };
-
-
 
     return (
         <div className="input-container">
@@ -36,7 +30,7 @@ const TitleReview = ({ handleTitleChange }) => {
                 }}
             />
         </div>
-    )
-}
+    );
+};
 
 export default TitleReview;    

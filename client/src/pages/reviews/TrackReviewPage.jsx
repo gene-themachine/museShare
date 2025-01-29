@@ -1,11 +1,11 @@
 import ReviewBox from '../../components/ReviewBox';
 import TitleReview from '../../components/TitleReview';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { trackAuthState } from '../../controllers/auth';
 import userController from '../../controllers/user';
 import blogController from '../../controllers/blog';
+import youtube from '../../controllers/youtube';
 
 const TrackReviewPage = ({ itemDetails }) => {
     const { id } = useParams();
@@ -15,44 +15,42 @@ const TrackReviewPage = ({ itemDetails }) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [user, setUser] = useState(null);
     const [username, setUsername] = useState('');
+    const [url, setUrl] = useState('https://www.youtube.com/embed/');
 
     useEffect(() => {
-        trackAuthState( async (currentUser) => {
-            setUser(currentUser);
-            const userInfo = await userController.viewOthersProfile(currentUser.uid);
-
-            setUsername(userInfo.username);
+        trackAuthState(async (currentUser) => {
+            if (currentUser && !user) {
+                setUser(currentUser);
+                const userInfo = await userController.viewOthersProfile(currentUser.uid);
+                const videoResponse = await youtube.searchYoutube(`${itemDetails.album} ${itemDetails.artist}`);
+                let tempUrl = `https://www.youtube.com/embed/${videoResponse.id}`;
+                setUrl(tempUrl);
+                setUsername(userInfo.username);
+            }
         });
     }, []);
 
-    const handleTitleChange = (newTitle) => {
-        setTitle(newTitle);
-    };
-    const handleReviewChange = (newReview) => {
-        setReview(newReview);
-    };
-    const handleRatingChange = (newRating) => {
-        setRating(newRating);
-    };
-
+    const handleTitleChange = (newTitle) => setTitle(newTitle);
+    const handleReviewChange = (newReview) => setReview(newReview);
+    const handleRatingChange = (newRating) => setRating(newRating);
 
     const handleBlogSubmit = async () => {
         try {
-            const response = await blogController.postBlog({
-                title: title,
+            await blogController.postBlog({
+                title,
                 description: review,
                 type: 'track',
                 email: user.email,
                 item_id: id,
-                rating: rating,
-                username: username,
+                rating,
+                username,
                 id: user.uid
             });
+
             setIsSubmitted(true);
             setTitle('');
             setReview('');
             setRating(0);
-
         } catch (error) {
             console.error('Error submitting blog:', error.message);
         }
@@ -66,14 +64,17 @@ const TrackReviewPage = ({ itemDetails }) => {
                     <p>Artist: {itemDetails.artist}</p>
                     <img src={itemDetails.cover_url} alt={`${itemDetails.name} cover`} className="review-image" />
                     <p>Album: {itemDetails.album}</p>
-                    <p>Release Date: {new Date(itemDetails.release_date).toLocaleDateString()}</p>
+                    <p id="track-album-name">Release Date: {new Date(itemDetails.release_date).toLocaleDateString()}</p>
+                    <div className="youtube-video">
+                        <iframe title="youtube detail" className="youtube-iframe" src={url} />
+                    </div>
                 </div>
                 <div className="track-review-box-tracks">
                     <h1>Add a Review</h1>
-                    <h3>Summarize your review in a few words</h3> 
+                    <h3>Summarize your review in a few words</h3>
                     <TitleReview handleTitleChange={handleTitleChange} />
                     <ReviewBox onReviewChange={handleReviewChange} onRatingChange={handleRatingChange} />
-                    <button className="submit-button" onClick={handleBlogSubmit}>Submit</button>  
+                    <button className="submit-button" onClick={handleBlogSubmit}>Submit</button>
                     {isSubmitted && <p>Blog submitted successfully</p>}
                 </div>
             </div>

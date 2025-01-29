@@ -18,11 +18,8 @@ const ViewArtistReviews = ({ itemDetails }) => {
                 const response = await blogController.getBlogsByArtist(id);
                 setReviews(response.data);
                 if (response.data.length > 0) {
-                    let totalRating = 0;
-                    response.data.forEach(review => {
-                        totalRating += review.rating;
-                    });
-                    const averageRating = response.data.length ? totalRating / response.data.length : 0;
+                    const totalRating = response.data.reduce((acc, review) => acc + review.rating, 0);
+                    const averageRating = totalRating / response.data.length;
                     setRating(averageRating);
                     setStarLoaded(true);
                 }
@@ -84,7 +81,7 @@ const ViewArtistReviews = ({ itemDetails }) => {
 
                     <div id="reviews-container">
                         {filteredReviews.map((review, index) => (
-                            <OneReview key={index} review={review} />
+                            <OneReview key={index} review={review} type="artist" />
                         ))}
                     </div>
                 </div>

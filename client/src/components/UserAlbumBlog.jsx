@@ -9,8 +9,7 @@ const UserAlbumBlog = ({ info }) => {
                             <h2>{info.name}</h2>
                             <p className="user-home-blog-artist">{info.artist}</p>
                             <p>{info.release_date}</p>
-
-                            <p>{info.title}</p>
+                            
 
                             <div className="user-star-rating">
                                 {[...Array(5)].map((_, index) => (
@@ -22,18 +21,15 @@ const UserAlbumBlog = ({ info }) => {
                                         ★
                                     </span>
                                 ))}
-
                             </div>
 
-                        </div>
-                        
-                        <div className="user-home-blog-text-bottom">
                             
 
-
-                            <div className="user-home-blog-star-rating">
-                                
-                            </div>
+                        </div>
+                        <div className="user-home-blog-text-bottom">
+                            <p>{info.title}</p>
+                            <p>- {info.username}</p>
+                            
                         </div>
                     </div>
                 </div>

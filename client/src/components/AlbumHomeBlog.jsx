@@ -1,5 +1,4 @@
 const AlbumHomeBlog = ({ info }) => {
-
     return (
         <div className="home-blog-container">
             <div className="album-cover">
@@ -7,14 +6,11 @@ const AlbumHomeBlog = ({ info }) => {
                 
                 <div className="album-info-overlay">
                     <div className="home-blog-text">
-                        
                         <div className="home-blog-text-top">
                             <h2>{info.name}</h2>
                             <p className="home-blog-artist">{info.artist}</p>
                             <p>{info.release_date}</p>
                             
-
-
                             <div className="star-rating">
                                 {[...Array(5)].map((_, index) => (
                                     <span
@@ -25,18 +21,12 @@ const AlbumHomeBlog = ({ info }) => {
                                         ★
                                     </span>
                                 ))}
-
                             </div>
-
                         </div>
                         
                         <div className="home-blog-text-bottom">
                             <p>{info.title}</p>
-                            
                             <p>- {info.username}</p>
-                            <div className="home-blog-star-rating">
-                                
-                            </div>
                         </div>
                     </div>
                 </div>

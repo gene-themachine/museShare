@@ -7,9 +7,9 @@ import ViewSpecificTrackReview from './ViewSpecificTrackReview';
 const ViewSpecificReview = () => {
     const { type, id } = useParams();
     
-
     const renderResults = ({type, id}) => {
         switch (type) {
+            
             case 'albums':
                 return <ViewSpecificAlbumReview id={id} />;
             case 'artists':

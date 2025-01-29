@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ReviewBox from '../../components/ReviewBox';
-import { useNavigate } from 'react-router-dom';
 import TitleReview from '../../components/TitleReview';
 import { trackAuthState } from '../../controllers/auth';
 import userController from '../../controllers/user';
@@ -19,72 +18,52 @@ const ArtistReviewPage = ({ itemDetails }) => {
     const [user, setUser] = useState(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [username, setUsername] = useState('');
-    useEffect(() => {
-        
-    }, []);
 
     useEffect(() => {
-        const fetchAlbums = async (currentUser) => {
-            try {
-                const userInfo = await userController.viewOthersProfile(currentUser.uid);
-
-                setUsername(userInfo.username);
-
-
-                const response = await spotify.searchArtistAlbums(id);
-                setAlbums(response);
-            } catch (error) {
-                console.error("Error fetching albums:", error);
-            }
-        };
-
-        
         trackAuthState((currentUser) => {
             setUser(currentUser);
-
-            
-            fetchAlbums(currentUser);
+            if (currentUser) {
+                fetchAlbums(currentUser);
+            }
         });
-
-        
     }, [id]);
 
-    const handleTitleChange = (newTitle) => {
-        setTitle(newTitle);
+    const fetchAlbums = async (currentUser) => {
+        try {
+            const userInfo = await userController.viewOthersProfile(currentUser.uid);
+            setUsername(userInfo.username);
+            const response = await spotify.searchArtistAlbums(id);
+            setAlbums(response);
+        } catch (error) {
+            console.error("Error fetching albums:", error);
+        }
     };
 
-    const handleReviewChange = (newReview) => {
-        setReview(newReview);
-    };
-
-    const handleRatingChange = (newRating) => {
-        setRating(newRating);
-    };
-
+    const handleTitleChange = (newTitle) => setTitle(newTitle);
+    const handleReviewChange = (newReview) => setReview(newReview);
+    const handleRatingChange = (newRating) => setRating(newRating);
 
     const handleAlbumClick = (album) => {
         navigate(`/review/${album.id}?type=album`);
-
     };
 
     const handleBlogSubmit = async () => {
         try {
-
-            const response = blogController.postBlog({
-                title: title,
+            await blogController.postBlog({
+                title,
                 description: review,
                 type: 'artist',
                 email: user.email,
                 item_id: id,
-                rating: rating,
-                username: username,
+                rating,
+                username,
                 id: user.uid
             });
+
             setIsSubmitted(true);
             setTitle('');
             setReview('');
             setRating(0);
-
         } catch (error) {
             console.error('Error submitting blog:', error.message);
         }
@@ -93,23 +72,21 @@ const ArtistReviewPage = ({ itemDetails }) => {
     return (
         <div className="artist-review">
             <div className="artist-header">
-                <div className = "artist-details">
+                <div className="artist-details">
                     <h1 className="artist-name">{itemDetails.name}</h1>
                     <img src={itemDetails.image_url} alt={`${itemDetails.name} cover`} className="review-image" />
                     <p>Genres: {itemDetails.genres.join(', ')}</p>
-
                 </div>
                 <div id = "track-review-box-artist"className="track-review-box-artist">
                     <h1>Add a Review</h1>
-                    <h3>Summarize your review in a few words</h3>   
+                    <h3>Summarize your review in a few words</h3>
                     <TitleReview handleTitleChange={handleTitleChange} />
                     <ReviewBox onReviewChange={handleReviewChange} onRatingChange={handleRatingChange} />
-                    <button className="submit-button" onClick={handleBlogSubmit}>Submit</button>  
+                    <button className="submit-button" onClick={handleBlogSubmit}>Submit</button>
                     {isSubmitted && <p>Blog submitted successfully</p>}
-
                 </div>
-        </div>
-            
+            </div>
+
             <div className="albums-list">
                 <h2 className="albums-title">Albums</h2>
                 {albums.map(album => (

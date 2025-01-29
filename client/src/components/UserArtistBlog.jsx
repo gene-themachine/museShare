@@ -20,17 +20,12 @@ const UserArtistBlog = ({ info }) => {
                                         ★
                                     </span>
                                 ))}
-
                             </div>
-
                         </div>
                         
                         <div className="user-home-blog-text-bottom">
-
-                            <p>- {info.email}</p>
-                            <div className="user-home-blog-star-rating">
-                                
-                            </div>
+                            <p>{info.title}</p>
+                            <p>- {info.username}</p>
                         </div>
                     </div>
                 </div>

@@ -18,12 +18,18 @@ const AddReviewPage = () => {
             setLoading(true);
             try {
                 let response;
-                if (buttonType === 'artist') {
-                    response = await spotify.searchArtists(search);
-                } else if (buttonType === 'album') {
-                    response = await spotify.searchAlbums(search);
-                } else if (buttonType === 'track') {
-                    response = await spotify.searchTracks(search);
+                switch (buttonType) {
+                    case 'artist':
+                        response = await spotify.searchArtists(search);
+                        break;
+                    case 'album':
+                        response = await spotify.searchAlbums(search);
+                        break;
+                    case 'track':
+                        response = await spotify.searchTracks(search);
+                        break;
+                    default:
+                        break;
                 }
                 setResults(response);
             } catch (error) {
@@ -45,15 +51,20 @@ const AddReviewPage = () => {
             setLoading(true);
             try {
                 let response;
-                if (activeButton === 'artist') {
-                    response = await spotify.searchArtists(query);
-                } else if (activeButton === 'album') {
-                    response = await spotify.searchAlbums(query);
-                } else if (activeButton === 'track') {
-                    response = await spotify.searchTracks(query);
+                switch (activeButton) {
+                    case 'artist':
+                        response = await spotify.searchArtists(query);
+                        break;
+                    case 'album':
+                        response = await spotify.searchAlbums(query);
+                        break;
+                    case 'track':
+                        response = await spotify.searchTracks(query);
+                        break;
+                    default:
+                        break;
                 }
                 setResults(response);
-
             } catch (error) {
                 console.error('Error fetching data:', error.message);
             } finally {
@@ -95,7 +106,7 @@ const AddReviewPage = () => {
             <div className="button-container">
                 <button
                     className={`artist-button ${activeButton === 'artist' ? 'active' : ''}`}
-                    onClick={() => handleButtonClick('artist')} 
+                    onClick={() => handleButtonClick('artist')}
                 >
                     Artists
                 </button>

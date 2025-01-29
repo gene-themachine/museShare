@@ -30,8 +30,6 @@ const ViewSpecificAlbumReview = ({id}) => {
                         console.error('Error fetching user data:', error.message);
                         setError('Failed to load user data.');
                     }
-
-
                     try {
                         let temp = await spotify.searchAlbumById(albumData.item_id);
                         setAlbum(temp);

@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import TitleReview from '../../components/TitleReview';
 import ReviewBox from '../../components/ReviewBox';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { trackAuthState } from '../../controllers/auth';
 import userController from '../../controllers/user';
 import spotify from '../../controllers/spotify';
 import blogController from '../../controllers/blog';
-
 
 const AlbumReviewPage = ({ itemDetails }) => {
     const { id } = useParams();
@@ -19,24 +17,19 @@ const AlbumReviewPage = ({ itemDetails }) => {
     const [itemDetailsCopy, setItemDetailsCopy] = useState(itemDetails);
     const [username, setUsername] = useState('');
 
-
     useEffect(() => {
         trackAuthState(async (currentUser) => {
             setUser(currentUser);
-
-
             if (currentUser) {
                 const userInfo = await userController.viewOthersProfile(currentUser.uid);
                 setUsername(userInfo.username);
-
             }
         });
     }, []);
 
     useEffect(() => {
-
         const fetchAlbumData = async () => {
-            try {                    
+            try {
                 const response = await spotify.searchAlbumById(id);
                 setItemDetailsCopy(response);
             } catch (error) {
@@ -45,33 +38,22 @@ const AlbumReviewPage = ({ itemDetails }) => {
         };
 
         fetchAlbumData();
+    }, [id]);
 
-        
-    }, [id, itemDetails.total_tracks, user]);
-
-
-    const handleTitleChange = (newTitle) => {
-        setTitle(newTitle);
-    };
-
-    const handleReviewChange = (newReview) => {
-        setReview(newReview);
-    };
-
-    const handleRatingChange = (newRating) => {
-        setRating(newRating);
-    };
+    const handleTitleChange = (newTitle) => setTitle(newTitle);
+    const handleReviewChange = (newReview) => setReview(newReview);
+    const handleRatingChange = (newRating) => setRating(newRating);
 
     const handleBlogSubmit = async () => {
         try {
-            const response = await blogController.postBlog({
-                title: title,
+            await blogController.postBlog({
+                title,
                 description: review,
                 type: 'album',
                 email: user.email,
                 item_id: id,
-                rating: rating,
-                username: username,
+                rating,
+                username,
                 id: user.uid
             });
 
@@ -79,12 +61,10 @@ const AlbumReviewPage = ({ itemDetails }) => {
             setTitle('');
             setReview('');
             setRating(0);
-
         } catch (error) {
             console.error('Error submitting blog:', error.message);
         }
     };
-
 
     return (
         <div className="album-review">
@@ -105,12 +85,10 @@ const AlbumReviewPage = ({ itemDetails }) => {
                     <h3>Summarize your review in a few words</h3>
                     <TitleReview handleTitleChange={handleTitleChange} />
                     <ReviewBox onReviewChange={handleReviewChange} onRatingChange={handleRatingChange} />
-
-                    <button className="submit-button" onClick={handleBlogSubmit}>Submit</button>  
+                    <button className="submit-button" onClick={handleBlogSubmit}>Submit</button>
                     {isSubmitted && <p>Blog submitted successfully</p>}
                 </div>
             </div>
-            {/* Add more album-specific details here */}
         </div>
     );
 };

@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import OneReview from './OneReview';
 import blogController from '../../controllers/blog';
 
 const ViewTracksReviews = ({ itemDetails }) => {
     const { id } = useParams();
-
     const [starLoaded, setStarLoaded] = useState(false);
     const [reviews, setReviews] = useState([]);
     const [rating, setRating] = useState(null);
@@ -18,11 +16,8 @@ const ViewTracksReviews = ({ itemDetails }) => {
                 const response = await blogController.getBlogsByTrack(id);
                 setReviews(response.data);
                 if (response.data.length > 0) {
-                    let totalRating = 0;
-                    response.data.forEach(review => {
-                        totalRating += review.rating;
-                    });
-                    const averageRating = response.data.length ? totalRating / response.data.length : 0;
+                    const totalRating = response.data.reduce((acc, review) => acc + review.rating, 0);
+                    const averageRating = totalRating / response.data.length;
                     setRating(averageRating);
                     setStarLoaded(true);
                 }
@@ -80,12 +75,12 @@ const ViewTracksReviews = ({ itemDetails }) => {
                             </div>
                         ))}
                     </div>
-                    
+
                     <div className="review-divider"></div>
 
                     <div id="reviews-container">
                         {filteredReviews.map((review, index) => (
-                            <OneReview key={index} review={review} />
+                            <OneReview key={index} review={review} type="track" />
                         ))}
                     </div>
                 </div>

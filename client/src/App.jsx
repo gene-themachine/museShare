@@ -11,10 +11,7 @@ import OthersProfilePage from './pages/OthersProfilePage'
 import ViewSpecificReview from './pages/SpecficReviews/ViewSpecificReview'
 
 
-
 function App() {
-
-
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -25,7 +22,7 @@ function App() {
         <Route path="/review/:id" element={<ReviewPage />} />
         <Route path="/view/:type/:id" element={<ViewReviewPage />} />
         <Route path="/user/:id" element={<UserPage />} />
-        <Route path="/profile/:id" element={<UserPage />} /> {/* email for now */}
+        <Route path="/profile/:id" element={<UserPage />} /> 
         <Route path="/profile/others/:id" element={<OthersProfilePage />} />
         <Route path="/view-review/:id" element={<ViewReviewPage />} />
         <Route path="/view-a-review/:type/:id" element={<ViewSpecificReview />} />
