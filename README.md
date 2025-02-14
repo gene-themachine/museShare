@@ -1,8 +1,6 @@
 # MuseShare
 ![alt text](./pictures/home.png)
 
-This is my 25w DALI lab Developer Challenge (API Challenge)
-
 Deployed URL: [MuseShare](https://museshare.onrender.com/)
 
 MuseShare is a web application designed for music enthusiasts to review their favorite albums, artists, and tracks. 
